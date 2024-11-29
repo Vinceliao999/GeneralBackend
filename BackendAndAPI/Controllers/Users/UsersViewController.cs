@@ -12,6 +12,7 @@ namespace BackendAndAPI.Controllers.Users
 {
     [Controller]
     [Authorize(Policy = "MvcPolicy")]
+    [Authorize(Roles = "admin")]
     public class UsersViewController : Controller
     {
         private readonly MSSQLLocalDBContext _context;

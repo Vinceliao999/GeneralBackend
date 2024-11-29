@@ -99,6 +99,7 @@ builder.Services.AddAuthorization(options =>
     });
     options.AddPolicy("MvcPolicy", policy =>
     {
+        policy.AuthenticationSchemes.Add(IdentityConstants.ApplicationScheme);
         policy.RequireAuthenticatedUser();
     });
 });
@@ -119,7 +120,9 @@ builder.Services.AddDbContext<MSSQLLocalDBContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
