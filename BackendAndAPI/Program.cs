@@ -66,25 +66,39 @@ builder.Services.AddSwaggerGen(setupAction =>
 });
 
 
-builder.Services.AddAuthentication("Bearer")
-    .AddJwtBearer(options =>
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = "Bearer";
+    options.DefaultChallengeScheme = "Bearer";
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new()
     {
-        options.TokenValidationParameters = new()
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Authentication:Issuer"],
-            ValidAudience = builder.Configuration["Authentication:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
-        };
-    });
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Authentication:Issuer"],
+        ValidAudience = builder.Configuration["Authentication:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
+    };
+})
+.AddCookie("Cookies", options =>
+{
+    options.LoginPath = "/Identity/Account/Login";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+});
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("Authenticated", policy =>
+    options.AddPolicy("ApiPolicy", policy =>
     {
+        policy.RequireAuthenticatedUser();
+    });
+    options.AddPolicy("MvcPolicy", policy =>
+    {
+        policy.AuthenticationSchemes.Add("Cookies");
         policy.RequireAuthenticatedUser();
     });
 });
@@ -124,17 +138,18 @@ else
     app.UseHsts();
 }
 
-app.UseCors();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCors();
 
+app.UseAuthentication();
+app.UseAuthorization();
+
+// This maps the API controllers
+app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",

@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace BackendAndAPI.Controllers
 {
+    [Controller]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

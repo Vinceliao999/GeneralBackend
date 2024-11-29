@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BackendAndAPI.Controllers.Users
 {
-    [Authorize]
+    [Authorize(Policy = "MvcPolicy")]
     public class UsersViewController : Controller
     {
         private readonly ApplicationDbContext _context;

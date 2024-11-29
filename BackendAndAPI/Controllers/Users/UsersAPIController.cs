@@ -7,11 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackendAndAPI.Data;
 using BackendAndAPI.Models;
+using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace BackendAndAPI.Controllers.Users
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("OpenToAllPolicy")]
+    [Authorize(Policy = "ApiPolicy")]
+    [Route("api/[controller]")]
+    //[ApiVersion("1.0")]
+    //[Route("api/v{version:apiVersion}/[controller]")]
     public class UsersAPIController : ControllerBase
     {
         //private readonly ApplicationDbContext _context;
