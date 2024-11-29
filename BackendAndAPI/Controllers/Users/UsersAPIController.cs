@@ -101,6 +101,12 @@ namespace BackendAndAPI.Controllers.Users
             return NoContent();
         }
 
+        [HttpGet("[action]")]
+        public async Task<List<GetAllUsersResult>> GetAllUserAsync()
+        {
+            return await _context.Procedures.GetAllUsersAsync();
+        }
+
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.Id == id);
