@@ -6,11 +6,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BackendAndAPI.Models;
+using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace BackendAndAPI.Controllers.Companies
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("OpenToAllPolicy")]
+    [Authorize(Policy = "ApiPolicy")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class CompaniesAPIController : ControllerBase
     {
         private readonly MSSQLLocalDBContext _context;

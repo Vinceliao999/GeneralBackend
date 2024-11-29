@@ -16,9 +16,8 @@ namespace BackendAndAPI.Controllers.Users
     [ApiController]
     [EnableCors("OpenToAllPolicy")]
     [Authorize(Policy = "ApiPolicy")]
-    [Route("api/[controller]")]
-    //[ApiVersion("1.0")]
-    //[Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class UsersAPIController : ControllerBase
     {
         //private readonly ApplicationDbContext _context;

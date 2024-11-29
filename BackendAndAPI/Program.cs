@@ -68,8 +68,8 @@ builder.Services.AddSwaggerGen(setupAction =>
 
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = "Bearer";
-    options.DefaultChallengeScheme = "Bearer";
+    //options.DefaultAuthenticateScheme = "Bearer";
+    //options.DefaultChallengeScheme = "Bearer";
 })
 .AddJwtBearer(options =>
 {
@@ -94,11 +94,11 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("ApiPolicy", policy =>
     {
+        policy.AuthenticationSchemes.Add("Bearer");
         policy.RequireAuthenticatedUser();
     });
     options.AddPolicy("MvcPolicy", policy =>
     {
-        policy.AuthenticationSchemes.Add("Cookies");
         policy.RequireAuthenticatedUser();
     });
 });
