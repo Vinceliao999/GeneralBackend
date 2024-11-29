@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>API</name>
+    </assembly>
+    <members>
+        <member name="M:API.Controllers.SampleCode.SampleCodeController.FireAndForget(API.Controllers.User.AddUserInModel)">
+            <summary>
+            Fire And Forget
+            </summary>
+            <param name="userModel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:API.Controllers.UserController.GetAllUsersAsync">
+            <summary>
+            GetAllUsersAsync
+            </summary>
+            <remarks>
+            Sample remarks
+            Sample remarks2
+            </remarks>
+            <returns>An ActionResult</returns>
+        </member>
+        <member name="M:API.Controllers.UserController.AddUserAsync(API.Controllers.User.AddUserInModel)">
+            <summary>
+            AddUserAsync
+            </summary>
+            <param name="userModel"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
